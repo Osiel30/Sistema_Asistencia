@@ -111,18 +111,11 @@ border-color: transparent !important;
 </style>
 
 <!--Container-->
-<div class="container w-full px-2">
-
-    <!--Title-->
-
-
+<div class="container w-full px-2 text-center">
 
     <!--Card-->
     <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-[#fdfcfd] text-gray-950 w-full">
-
-
         <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-
             <thead>
                 {{ $content_head }}
             </thead>
@@ -130,19 +123,11 @@ border-color: transparent !important;
             <tbody>
                 {{ $content_body }}
             </tbody>
-
         </table>
-
-
     </div>
     <!--/Card-->
-
-
 </div>
 <!--/container-->
-
-
-
 
 
 <!-- jQuery -->
@@ -161,6 +146,5 @@ border-color: transparent !important;
             .responsive.recalc();
     });
 </script>
-
 
 </html>

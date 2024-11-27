@@ -27,6 +27,7 @@
         
         {{-- Content --}}
         <div class="pt-10 pr-4 sm:ml-64 w-full">
+            <div style="font-family: 'Kumbh Sans', sans-serif;" class="text-[#004643] text-5xl">@yield('h1')</div>
             @yield('content')
         </div>
 
