@@ -4,6 +4,11 @@
 @section('title', 'Permisos')
 
 @section('content')
+
+@section('h1')
+	<h1 class="mb-10 mt-5 ml-4">Permisos</h1>
+@endsection
+
 @component('_components.table')
 
 @slot('content_head')
