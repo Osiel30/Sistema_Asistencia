@@ -1,107 +1,201 @@
-{{-- Vista para reporte de asistencias en PDF --}}
+{{-- Vista general de asistencia --}}
 @extends('layouts.user_view')
 
-@section('title', 'Reporte de Asistencia')
+@section('title', 'Asistencia')
+
+@section('styles')
+    <!--Regular Datatables CSS-->
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!--Responsive Extension Datatables CSS-->
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+
+    <style>
+        /*Overrides for Tailwind CSS */
+
+        /*Form fields*/
+        .dataTables_wrapper select,
+        .dataTables_wrapper .dataTables_filter input {
+            color: #4a5568;
+            /*text-gray-700*/
+            padding-left: 1rem;
+            /*pl-4*/
+            padding-right: 1rem;
+            /*pl-4*/
+            padding-top: .5rem;
+            /*pl-2*/
+            padding-bottom: .5rem;
+            /*pl-2*/
+            line-height: 1.25;
+            /*leading-tight*/
+            border-width: 2px;
+            /*border-2*/
+            border-radius: .25rem;
+            border-color: #edf2f7;
+            /*border-gray-200 NO*/
+            background-color: #e6edec;
+            /*bg-gray-200 NO*/
+        }
+
+        /*Row Hover*/
+        table.dataTable.hover tbody tr:hover,
+        table.dataTable.display tbody tr:hover {
+            background-color: #e6edec;
+            /*bg-indigo-100*/
+        }
+
+        /*Pagination Buttons*/
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            font-weight: 700;
+            /*font-bold*/
+            border-radius: .25rem;
+            /*rounded*/
+            border: 1px solid transparent;
+            /*border border-transparent*/
+        }
+
+        /*Pagination Buttons - Current selected */
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            color: #fff !important;
+            /*text-white*/
+            /*BIEN*/
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+            /*shadow*/
+            font-weight: 700;
+            /*font-bold*/
+            border-radius: .25rem;
+            /*rounded*/
+            background: #2e6765 !important;
+            /*bg-indigo-500*/
+            border: 1px solid transparent;
+            /*border border-transparent*/
+        }
+
+        /*Pagination Buttons - Hover */
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            color: #fff !important;
+            /*text-white*/
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+            /*shadow*/
+            font-weight: 700;
+            /*font-bold*/
+            border-radius: .25rem;
+            /*rounded*/
+            border: 1px solid transparent;
+            /*border border-transparent*/
+        }
+
+        /* Estilo específico para los botones Previous y Next */
+        .dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {
+            color: #ffffff !important;
+            /* Cambia el texto a blanco */
+            background-color: #5e8a89 !important;
+            /* Fondo al hacer hover */
+            border-color: transparent !important;
+        }
+
+
+        .paginate_button:hover {
+            background: #5e8a89 !important;
+
+            /*bg-indigo-500*/
+        }
+
+        /*Add padding to bottom border */
+        table.dataTable.no-footer {
+            border-bottom: 1px solid #e2e8f0;
+            /*border-b-1 border-gray-300*/
+            margin-top: 0.75em;
+            margin-bottom: 0.75em;
+        }
+
+        /*Change colour of responsive icon*/
+        table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
+        table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+            background-color: #667eea !important;
+            /*bg-indigo-500*/
+        }
+    </style>
+@endsection
 
 @section('content')
-    <div class="pdf-container">
-        <header>
-            <div class="header">
-                <h1>Reporte de Asistencias</h1>
-                <p>Generado el {{ date('d-m-Y') }}</p>
-            </div>
-        </header>
 
-        <main>
-            <table class="report-table">
+    <!--Container-->
+    <div class="container w-full px-2 text-center">
+        <!--Title-->
+        <!--Card-->
+        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-[#fdfcfd] text-gray-950 w-full">
+
+
+            <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Rol</th>
-                        <th>Fecha</th>
-                        <th>Hora</th>
+                        <th data-priority="1">Id</th>
+                        <th data-priority="2">Id Sucursal</th>
+                        <th data-priority="3">Fecha</th>
+                        <th data-priority="4">Entrada</th>
+                        <th data-priority="5">Salida</th>
+                        <th data-priority="6">Entrada 2</th>
+                        <th data-priority="7">Salida 2</th>
+                        <th data-priority="8">Acción</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($asistencias as $asistencia)
-                        <tr>
-                            <td>{{ $asistencia->id }}</td>
-                            <td>{{ $asistencia->nombre }}</td>
-                            <td>{{ $asistencia->rol }}</td>
-                            <td>{{ $asistencia->fecha }}</td>
-                            <td>{{ $asistencia->hora }}</td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>10-11-20</td>
+                        <td>7:10:25</td>
+                        <td>10:10:25</td>
+                        <td>5:10:25</td>
+                        <td>10:10:25</td>
+                        <td><a href="#"
+                                class="p-1.5 m-1.5 bg-[#0468BF] rounded font-bold text-[#fdfcfd] hover:bg-[#09487E]">Editar</a><a
+                                href="#"
+                                class="p-1.5 m-1.5 bg-rose-500 rounded font-bold text-[#fdfcfd] hover:bg-rose-700">Eliminar</a>
+                        </td>
+                    </tr>
+
+                    <!-- Rest of your data (refer to https://datatables.net/examples/server_side/ for server side processing)-->
+
+                    <tr>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>10-11-20</td>
+                        <td>7:10:25</td>
+                        <td>10:10:25</td>
+                        <td>13:10:25</td>
+                        <td>16:10:25</td>
+                        <td><a href="#"
+                                class="p-1.5 m-1.5 bg-[#0468BF] rounded font-bold text-[#fdfcfd] hover:bg-[#09487E]">Editar</a><a
+                                href="#"
+                                class="p-1.5 m-1.5 bg-rose-500 rounded font-bold text-[#fdfcfd] hover:bg-rose-700">Eliminar</a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-        </main>
-
-        <footer>
-            <p>&copy; {{ date('Y') }} Sistema de Gestión de Asistencias. Todos los derechos reservados.</p>
-        </footer>
+        </div>
+        <!--/Card-->
     </div>
-@endsection
+    <!--/container-->
 
-@section('styles')
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f8f8;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-        .pdf-container {
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #ffffff;
-        }
+    <!--Datatables -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script>
+        $(document).ready(function() {
 
-        .header {
-            text-align: center;
-            background-color: #004643;
-            color: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
+            var table = $('#example').DataTable({
+                    responsive: true
+                })
+                .columns.adjust()
+                .responsive.recalc();
+        });
+    </script>
 
-        .header h1 {
-            font-size: 2.5rem;
-        }
 
-        .header p {
-            font-size: 1.2rem;
-        }
-
-        .report-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .report-table th, .report-table td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ccc;
-        }
-
-        .report-table th {
-            background-color: #004643;
-            color: white;
-        }
-
-        .report-table tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #777;
-        }
-    </style>
+    </html>
 @endsection
