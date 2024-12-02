@@ -50,4 +50,44 @@
 	@endslot
  
  @endcomponent
+                    <tr>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>10-11-20</td>
+                        <td>7:10:25</td>
+                        <td>10:10:25</td>
+                        <td>13:10:25</td>
+                        <td>16:10:25</td>
+                        <td><a href="#"
+                                class="p-1.5 m-1.5 bg-[#0468BF] rounded font-bold text-[#fdfcfd] hover:bg-[#09487E]">Editar</a><a
+                                href="#"
+                                class="p-1.5 m-1.5 bg-rose-500 rounded font-bold text-[#fdfcfd] hover:bg-rose-700">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--/Card-->
+    </div>
+    <!--/container-->
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!--Datatables -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            var table = $('#example').DataTable({
+                    responsive: true
+                })
+                .columns.adjust()
+                .responsive.recalc();
+        });
+    </script>
+
+
+    </html>
 @endsection
