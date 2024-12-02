@@ -72,7 +72,7 @@
 
         @component('_components.boxSidebar ')
             @slot('icon')
-                <ion-icon name="checkbox-outline"></ion-icon>
+            <ion-icon name="remove-circle-outline"></ion-icon>
             @endslot
             @slot('reference', 'inasistencias.view')
             @slot('name', 'Inasistencia')
