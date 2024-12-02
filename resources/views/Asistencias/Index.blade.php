@@ -1,39 +1,50 @@
-@extends('layouts.app')
+ @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Lista de Asistencias</h1>
-    <a href="{{ route('asistencias.create') }}" class="btn btn-primary">Nueva Asistencia</a>
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Empleado</th>
-                <th>Fecha</th>
-                <th>Entrada</th>
-                <th>Salida</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($asistencias as $asistencia)
+    <div class="container">
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-2xl font-bold">Listas de Asistencias</h1>
+            {{-- <a href="{{ route('Asistencias.Create') }}" class="btn bg-[#004643] text-[#fdfcfd] font-semibold hover:"> --}}
+             <a href="#" class="btn bg-[#004643] text-[#fdfcfd] font-semibold hover:">
+                Nueva Asistencia
+            </a>
+        </div>
+
+        <table class="table mt-3">
+            <thead>{}
                 <tr>
-                    <td>{{ $asistencia->id }}</td>
-                    <td>{{ $asistencia->id_empleado_sucursal->nombre ?? 'N/A' }}</td>
-                    <td>{{ $asistencia->fecha }}</td>
-                    <td>{{ $asistencia->hora_entrada }}</td>
-                    <td>{{ $asistencia->hora_salida }}</td>
-                    <td>
-                        <a href="{{ route('asistencias.edit', $asistencia->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                        <form action="{{ route('asistencias.destroy', $asistencia->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
-                        </form>
-                    </td>
+                    <th>ID</th>
+                    <th>Empleado</th>
+                    <th>Fecha</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+                    <th>Acciones</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @forelse ($asistencias as $asistencia)
+                    <tr>
+                        <td>{{ $asistencia->id }}</td>
+                        <td>{{ $asistencia->empleadoSucursal->nombre ?? 'N/A' }}</td>
+                        <td>{{ $asistencia->fecha }}</td>
+                        <td>{{ $asistencia->hora_entrada }}</td>
+                        <td>{{ $asistencia->hora_salida }}</td>
+                        <td>
+                            <a href="{{ route('Asistencias.show', $asistencia->id) }}" class="btn btn-info">Ver</a>
+                            <a href="{{ route('Asistencias.edit', $asistencia->id) }}" class="btn btn-warning">Editar</a>
+                            <form action="{{ route('Asistencias.destroy', $asistencia->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center">No hay datos disponibles</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 @endsection
