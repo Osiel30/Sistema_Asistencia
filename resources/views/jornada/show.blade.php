@@ -16,9 +16,11 @@
     </div>
 
     <!-- Aquí puedes agregar el código QR -->
-    <div>
+    {{-- <div>
         <h4>Generar QR</h4>
-        {{-- {!! QrCode::size(250)->generate(route('jornada.show', $jornada->id)); !!} --}}
-    </div>
+         {!! QrCode::size(250)->generate(route('jornada.show', $jornada->id)); !!}
+    </div> --}}
 
     <a href="{{ route('jornada.index') }}" class="btn btn-secondary mt-3">Volver al Historial</a>
+
+</div>
