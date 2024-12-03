@@ -5,7 +5,7 @@
     rel="stylesheet">
 
 <div class="fixed top-0 left-0 h-full w-60 p-2 flex flex-col bg-lime-700 text-white items-center space-y-4"
-    style="background: #c11c13; font-family: 'Kumbh Sans', sans-serif;">
+    style="background: #ff0606; font-family: 'Kumbh Sans', sans-serif;">
 
     <div class="">
         <a href="{{ route('index') }}">
